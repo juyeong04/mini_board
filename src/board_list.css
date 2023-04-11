@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+
+h1 {
+    font-family: 'Noto Serif KR', serif;
+    width: 60%;
+    margin: 1em auto;
+    padding: 12px;
+    /* font-weight: 400; */
+    font-size: 50px;
+    /* color: #2F70FF; */
+}
+
+.container {
+    font-family: 'Noto Serif KR', serif;
+    width: 60%;
+}
+
+.a_tag {
+    text-align: center;
+}
+
+td>a {
+    text-decoration: none;
+    color: #000;
+}
+
+.table_all {
+    /* width: 60%; */
+    margin: 2em auto 4em;
+    box-shadow: 2px 2px 10px gray;
+}
+
+table {
+    text-align: center;
+}
+
+.board_no {
+    width: 8em;
+}
+
+/* .board_title {
+    width: 20em;
+} */
+
+.board_time {
+    width: 15em;
+}
+
