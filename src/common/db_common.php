@@ -29,6 +29,7 @@ function db_conn( &$param_conn )
 }
 
 // --- 쿼리 함수
+// 게시글 페이지
 function select_board_info_paging( &$param_arr )
 {
     $sql = 
@@ -73,10 +74,6 @@ function select_board_info_paging( &$param_arr )
 }
 
 
-// TODO : start
-// $i = 1;
-// print_r(select_board_info_no($i));
-// // TODO : end
 
 
 
@@ -84,15 +81,15 @@ function select_board_info_paging( &$param_arr )
 function select_board_info_cnt() 
 {
     $sql = 
-        " SELECT "
-        ."      COUNT(*) cnt "
-        ." FROM "
-        ."      board_info "
-        ." WHERE "
-        ."      board_del_flg = '0' " // 빼먹지 말기!
-        ;
+    " SELECT "
+    ."      COUNT(*) cnt "
+    ." FROM "
+    ."      board_info "
+    ." WHERE "
+    ."      board_del_flg = '0' " // 빼먹지 말기!
+    ;
     $arr_prepare = array();
-
+    
     $conn = null;
     
     try
@@ -110,43 +107,43 @@ function select_board_info_cnt()
     {
         $conn = null; // 닫음
     }
-
+    
     return $result;
 }
 
 
-
-//------------- 함수 실행
 // TODO :  test Start
-// $param_arr[limit_num] = 
+// $arr = 
 //     array(
-//         "limit_num" => 5
-//         ,"offset"    => 0
-//     );
-// $result = select_board_info_paging( $arr );
-// // print_r( $result );
+    //         "limit_num" => 5
+    //         ,"offset"    => 0
+    //     );
+    // $result = select_board_info_paging( $arr );
+    // // print_r( $result );
+    
+    
+    // TODO : test End
 
 
-// TODO : test End
 
 // 게시글번호 1번 불러오면 게시글1번 정보가 불러지게
 function select_board_info_no( &$param_no )
-{
-    $sql = 
-    " SELECT " 
-	." board_no "
-	." ,board_title "
-	." ,board_contents "
+    {
+        $sql = 
+        " SELECT " 
+        ." board_no "
+        ." ,board_title "
+        ." ,board_contents "
     ." FROM "
     ." board_info "
     ." WHERE " 
     ." board_no = :board_no " 
     ;
-
+    
     $arr_prepare = 
-        array(
-            ":board_no" => $param_no
-        );
+    array(
+        ":board_no" => $param_no
+    );
     
     $conn = null;
     
@@ -165,15 +162,21 @@ function select_board_info_no( &$param_no )
     {
         $conn = null; // 닫음
     }
-
+    
     return $result[0]; // fetch했을때 이차원배열로 가져옴
     /* array(
         array(
             "board_no" => "1"
             ,"board_title" => "제목1"
-        )
-    )*/
-}
+            )
+            )*/
+        }
+        
+    // TODO : start
+    $i = 1;
+    print_r(select_board_info_no($i));
+    // // TODO : end
+
 
 //------------------------------------
 // 함수명   : update_board_info_no
@@ -184,23 +187,23 @@ function select_board_info_no( &$param_no )
 function update_board_info_no( &$param_arr )
 {
     $sql = 
-        " UPDATE "
-        ." board_info "
-        ." SET "
-        ."  board_title = :board_title "
-        ."  ,board_contents = :board_contents "
-        ." WHERE "
-        ."  board_no = :board_no "
-        ;
+    " UPDATE "
+    ." board_info "
+    ." SET "
+    ."  board_title = :board_title "
+    ."  ,board_contents = :board_contents "
+    ." WHERE "
+    ."  board_no = :board_no "
+    ;
     $arr_prepare = 
-        array(
-            ":board_title" => $param_arr["board_title"]
-            ,":board_contents" => $param_arr["board_contents"]
-            ,":board_no" => $param_arr["board_no"]
-        );
-    
-    $conn = null;
+    array(
+        ":board_title" => $param_arr["board_title"]
+        ,":board_contents" => $param_arr["board_contents"]
+        ,":board_no" => $param_arr["board_no"]
+    );
 
+    $conn = null;
+    
     try
     {
         db_conn( $conn ); // PDO object set(db연결)
@@ -219,15 +222,16 @@ function update_board_info_no( &$param_arr )
     {
         $conn = null; // PDO 파기
     }
-
+    
     return $result_cnt;
 }
 
+
 // $arr=
 //     array(
-//         "board_no" => 1
-//         ,"board_title" => "test1"
-//         ,"board_contents" =>"testtest1"
-//     );
-// echo update_board_info_no( $arr );
+    //         "board_no" => 1
+    //         ,"board_title" => "test1"
+    //         ,"board_contents" =>"testtest1"
+    //     );
+    // echo update_board_info_no( $arr );
 ?>
