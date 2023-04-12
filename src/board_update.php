@@ -6,11 +6,11 @@
 
     $http_method = $_SERVER["REQUEST_METHOD"]; // get방식이면 GET post방식이면 POST 라고 출력
 
-    // GET 체크
-    $board_no = 1;
-
+    // GET 일때
+    
     if( $http_method === "GET" )
     {
+        $board_no = 1;
         if( array_key_exists( "board_no", $_GET) ) // $_GET : 슈퍼글로벌 변수, 연상배열로 불러와서 get에 담김
         {
             $board_no = $_GET["board_no"]; 
@@ -31,8 +31,12 @@
         // update
         $result_cnt = update_board_info_no( $arr_info );
 
-        // select : update된 거 다시 화면에 출력
-        $result_info = select_board_info_no( $arr_post["board_no"] );
+        // // select : update된 거 다시 화면에 출력
+        // $result_info = select_board_info_no( $arr_post["board_no"] ); 0412 del
+
+        header("Location: board_detail.php?board_no=".$arr_post["board_no"]);
+        //Location: board_detail.php?board_no=1 이렇게 표시됨
+        exit(); // exit 이후 코드는 실행 안함 header 이용해서 redirect 해서 다른 화면 넘어갈거기 때문
     }
 ?>
 
@@ -56,8 +60,13 @@
         <input type="text" name= "board_contents" id= "contents" value="<?php echo $result_info['board_contents'] ?>" > 
         <br>
         <button type="submit">수정</button>
-        <button type="button"><a href="board_list.php">리스트</a></button>
+        <button type="button">
+            <a href="board_detail.php?board_no=<?php echo $result_info["board_no"]?>">
+                취소
+            </a>
+        </button>
     </form>
+    <button type="button"><a href="board_list.php">리스트</a></button>
 
 </body>
 </html>
